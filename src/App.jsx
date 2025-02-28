@@ -7,6 +7,9 @@ function App() {
   const [forecastData, setForecastData] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  console.log("forecastDataApp:", forecastData);
+  console.log("locationDataApp:", locationData);
   return (
     <div className="bg-gray-600 min-h-screen">
       <Header

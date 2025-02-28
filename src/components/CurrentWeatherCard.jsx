@@ -108,13 +108,13 @@ export default function CurrentWeatherCard({
       </div>
       <span className="w-full h-0.5 bg-white -mt-2 opacity-10"></span>
       <div className="grid grid-cols-2 w-full">
-        <img className="w-5" src="./public/location.png" alt="location Icon" />
+        <img className="w-5" src="/location.png" alt="location Icon" />
         <span className="-ml-3 md:-ml-6 lg:-ml-12 text-sm md:text-lg">
           {locationData?.name || "N/A"}, {locationData?.country || "N/A"}
         </span>
       </div>
       <div className="grid grid-cols-2 w-full">
-        <img className="w-5" src="./public/calendar.png" alt="calendar Icon" />
+        <img className="w-5" src="/calendar.png" alt="calendar Icon" />
         <span className="-ml-3 md:-ml-6 lg:-ml-12 text-sm md:text-lg">
           {" "}
           {locationData?.localtime || " N/A"}

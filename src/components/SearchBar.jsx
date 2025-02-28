@@ -1,23 +1,26 @@
+import React from "react";
 import { useState, useEffect } from "react";
 export default function SearchBar({
-  className,
   setLocationData,
   locationData,
   setCurrentWeatherData,
   setError,
+  error,
   setLoading,
   setForecastData,
 }) {
   const [searchInput, setSearchInput] = useState("");
   const [lastSearchInput, setLastSearchInput] = useState("Nairobi");
-  const URLBase = "https://api.weatherapi.com/v1/forecast.json?";
-  const API_Key = "95774121798f41b5b7d121517251802";
+  const API_KEY = "95774121798f41b5b7d121517251802";
+  const BASE_URL = "https://api.weatherapi.com/v1/forecast.json";
 
   const fetchWeatherData = async (searchInput) => {
     setLoading(true);
     setError(""); //clear previous error message before fetching new data
     try {
-      const response = await fetch(`${URLBase}key=${API_Key}&q=${searchInput}`);
+      const response = await fetch(
+        `${BASE_URL}?key=${API_KEY}&q=${searchInput}&days=9`
+      );
       if (!response.ok) {
         throw new Error("City not found!");
       }
@@ -27,6 +30,7 @@ export default function SearchBar({
       setForecastData(data.forecast);
     } catch (error) {
       setError(error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -36,15 +40,14 @@ export default function SearchBar({
     const interval = setInterval(() => {
       fetchWeatherData(lastSearchInput);
       console.log(locationData);
-    }, 60000); //fetches data every 60 seconds
+    }, 180000); //refreshes the data every three minutes
     return () => clearInterval(interval);
   }, [lastSearchInput]); //runs when lastSearchInput Changes
 
   function handleSubmit(e) {
     e.preventDefault();
     if (searchInput.trim() === "") {
-      setError("Your Search Input is Empty!");
-      console.log("Your Search Input is Empty!");
+      alert("Your Search Input is Empty!");
       return;
     }
 
@@ -53,23 +56,34 @@ export default function SearchBar({
     setSearchInput(""); //clear search input after fetching data
   }
   return (
-    <form className={`flex ${className} mx-10`} onSubmit={handleSubmit}>
-      <input
-        name="searchInput"
-        value={searchInput}
-        onChange={(e) => {
-          setSearchInput(e.target.value);
-        }}
-        placeholder="search for city"
-        type="text"
-        className="bg-green-white text-white p-2 rounded-l-lg flex-1 focus:outline-none focus:ring-2 border-1 !border-blue-500 focus:ring-blue-500"
-      />
-      <button
-        type="submit"
-        className=" !bg-blue-500 !rounded-l-none rounded-lg text-white  px-2 py-2"
+    <div className="flex flex-row">
+      <form
+        className="flex w-full max-w-[600px] mx-2 md:mx-10`"
+        onSubmit={handleSubmit}
       >
-        Search
-      </button>
-    </form>
+        <div className="flex w-full max-w-[600px] mx-auto">
+          <input
+            name="searchInput"
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+            placeholder="search for city"
+            type="text"
+            className="text-white p-1 md:p-2 rounded-l-lg flex-1 focus:outline-none focus:ring-2 border-1 !border-blue-500 focus:ring-blue-500"
+          />
+          <button
+            type="submit"
+            className=" !bg-blue-500 !rounded-l-none rounded-lg text-white p-2 md:p-2 w-10 h-8 md:h-10"
+          >
+            <img
+              className="w-4 md:w-6"
+              src="/search-interface-symbol.png"
+              alt=""
+            />
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

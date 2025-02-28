@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import Header from "./components/Header";
 import WeatherDashboard from "./components/WeatherDashboard";
@@ -18,6 +19,7 @@ function App() {
         setCurrentWeatherData={setCurrentWeatherData}
         setForecastData={setForecastData}
         setError={setError}
+        error={error}
         setLoading={setLoading}
       />
       <WeatherDashboard

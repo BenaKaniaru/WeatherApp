@@ -1,3 +1,4 @@
+import React from "react";
 import CurrentWeatherCard from "../components/CurrentWeatherCard";
 import WeatherHighlights from "../components/WeatherHighlights";
 export default function WeatherDashboard({
@@ -8,7 +9,7 @@ export default function WeatherDashboard({
   loading,
 }) {
   return (
-    <div className="grid grid-cols-[0.5fr_2fr] gap-10 items-start mt-4">
+    <div className="grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-3 ">
       <CurrentWeatherCard
         locationData={locationData}
         currentWeatherData={currentWeatherData}

@@ -1,3 +1,4 @@
+import React from "react";
 import SunCard from "./SunCard";
 import UVCard from "./UVCard";
 import WindCard from "./WindCard";

@@ -19,7 +19,7 @@ export default function SearchBar({
     setError(""); //clear previous error message before fetching new data
     try {
       const response = await fetch(
-        `${BASE_URL}?key=${API_KEY}&q=${searchInput}&days=9`
+        `${BASE_URL}?key=${API_KEY}&q=${searchInput}&days=7`
       );
       if (!response.ok) {
         throw new Error("City not found!");
@@ -30,7 +30,6 @@ export default function SearchBar({
       setForecastData(data.forecast);
     } catch (error) {
       setError(error.message);
-      alert(error.message);
     } finally {
       setLoading(false);
     }

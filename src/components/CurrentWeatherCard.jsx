@@ -1,18 +1,29 @@
 import React from "react";
+import { useEffect, useState } from "react";
 export default function CurrentWeatherCard({
   locationData,
   currentWeatherData,
   forecastData,
-  error,
-  loading,
 }) {
-  console.log(
-    "manged",
-    forecastData?.forecastday?.[0]?.day?.daily_chance_of_rain
-  );
+  const [hourlyWeatherData, setHourlyWeatherData] = useState([]);
+
+  useEffect(() => {
+    if (forecastData?.forecastday?.[0]?.hour) {
+      const hourlyData = forecastData.forecastday[0].hour;
+      const currentTimeEpoch = Math.floor(Date.now() / 1000); // get current time in seconds
+      const futureHours = hourlyData.filter(
+        //filter out past hours and update only data for future hours from the current hour
+        (hour) => hour.time_epoch > currentTimeEpoch
+      );
+      setHourlyWeatherData(futureHours);
+    }
+  }, [forecastData]);
+
   return (
     <div className=" flex flex-col justify-start p-4 gap-4 bg-gray-800  md:w-60 lg:w-80  shadow-2xl shadow-gray-400 rounded-lg mx-4 h-full text-white mb-4">
-      <span className="font-light italic">Today Weather Highlights</span>
+      <span className="font-light italic text-md">
+        Today Weather Highlights
+      </span>
       <div className="flex gap-6">
         <div>
           <img
@@ -88,7 +99,7 @@ export default function CurrentWeatherCard({
             <img className="w-4 h-4" src="/rain.png" alt="Rain Icon" />
             <span>
               <span className="text-lg font-semibold ml-2">
-                {forecastData?.forecastday?.[0]?.day?.daily_chance_of_rain}{" "}
+                {forecastData?.forecastday?.[0]?.day?.daily_chance_of_rain}%{" "}
                 <span className="text-sm font-light">chances of rain</span>
               </span>
             </span>
@@ -119,6 +130,33 @@ export default function CurrentWeatherCard({
           {" "}
           {locationData?.localtime || " N/A"}
         </span>
+      </div>
+
+      <div className="hidden md:grid">
+        <p className="font-light italic p-4">Today's Hourly Forecast</p>
+        <div className="hidden md:grid grid-cols-2 gap-4">
+          {hourlyWeatherData.map((hour) => {
+            const date = new Date(hour.time); //convert to Date object;
+            let hour12 = date.getHours() % 12 || 12; //converts current hour to 12-hour format
+            const ampm = date.getHours() >= 12 ? "PM" : "AM";
+
+            return (
+              <div className="bg-gray-600 shadow-lg  p-2 rounded-lg">
+                <span className="text-white">{`${hour12} ${ampm}`}</span>
+                <span>
+                  <img src={hour.condition.icon} alt="" />
+                </span>
+                <span>{hour.condition.text}</span>
+                <div className="flex items-end">
+                  <span className="text-sm">
+                    {hour.temp_c}
+                    <sup className="text-sm">°C</sup>
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

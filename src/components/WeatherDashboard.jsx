@@ -9,7 +9,15 @@ export default function WeatherDashboard({
   loading,
 }) {
   return (
-    <div className="grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-3 ">
+    <div
+      className={
+        loading
+          ? "opacity-25 grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-22"
+          : error
+          ? "hidden"
+          : "grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-22"
+      }
+    >
       <CurrentWeatherCard
         locationData={locationData}
         currentWeatherData={currentWeatherData}

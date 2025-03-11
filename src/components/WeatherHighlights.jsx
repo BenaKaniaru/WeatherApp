@@ -1,6 +1,7 @@
 import React from "react";
 import UpperDeck from "./UpperDeck";
 import LowerDeck from "./LowerDeck";
+import MiddleDeck from "./middleDeck";
 import BelowDeck from "./BelowDeck";
 export default function WeatherHighlights({
   currentWeatherData,
@@ -12,6 +13,7 @@ export default function WeatherHighlights({
         currentWeatherData={currentWeatherData}
         forecastData={forecastData}
       />
+      <MiddleDeck forecastData={forecastData} />
       <LowerDeck
         currentWeatherData={currentWeatherData}
         forecastData={forecastData}

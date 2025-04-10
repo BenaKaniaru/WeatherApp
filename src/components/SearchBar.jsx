@@ -11,7 +11,7 @@ export default function SearchBar({
 }) {
   const [searchInput, setSearchInput] = useState("");
   const [lastSearchInput, setLastSearchInput] = useState("Nairobi");
-  const API_KEY = "95774121798f41b5b7d121517251802";
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const BASE_URL = "https://api.weatherapi.com/v1/forecast.json";
 
   const fetchWeatherData = async (searchInput) => {
@@ -55,7 +55,7 @@ export default function SearchBar({
     setSearchInput(""); //clear search input after fetching data
   }
   return (
-    <div className="flex flex-row">
+    <div className="w-full px-2 md:px-10 max-w-2xl mx-auto">
       <form
         className="flex w-full max-w-[600px] mx-2 md:mx-10`"
         onSubmit={handleSubmit}

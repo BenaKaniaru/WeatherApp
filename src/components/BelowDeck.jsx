@@ -31,7 +31,7 @@ export default function BelowDeck({ forecastData }) {
       <p className="text-white text-lg font-light italic">Weather Forecast</p>
       <div className="grid grid-cols-3 md:grid-cols-4 gap-2 mr-4 ">
         {forecastData?.forecastday?.slice(1).map((day) => (
-          <div className="bg-gray-800 p-2 rounded-lg shadow-lg">
+          <div key={day.date} className="bg-gray-800 p-2 rounded-lg shadow-lg">
             <span className="text-white text-sm font-light">
               {getDayOfWeek(day.date)}
             </span>

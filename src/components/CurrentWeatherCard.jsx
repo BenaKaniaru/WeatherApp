@@ -141,7 +141,10 @@ export default function CurrentWeatherCard({
             const ampm = date.getHours() >= 12 ? "PM" : "AM";
 
             return (
-              <div className="bg-gray-600 shadow-lg  p-2 rounded-lg">
+              <div
+                key={hour.time_epoch}
+                className="bg-gray-600 shadow-lg  p-2 rounded-lg"
+              >
                 <span className="text-white">{`${hour12} ${ampm}`}</span>
                 <span>
                   <img src={hour.condition.icon} alt="" />

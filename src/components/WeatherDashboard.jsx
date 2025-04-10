@@ -12,7 +12,7 @@ export default function WeatherDashboard({
     <div
       className={
         loading
-          ? "opacity-25 grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-22"
+          ? "opacity-15 grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-22"
           : error
           ? "hidden"
           : "grid md:grid-cols-[0.5fr_2fr] gap-2 items-start mt-22"
